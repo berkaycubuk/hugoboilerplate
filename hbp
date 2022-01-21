@@ -30,6 +30,7 @@ command_new() {
     mkdir -p "$project_path/layouts/_default"
     mkdir -p "$project_path/layouts/partials"
     mkdir -p "$project_path/layouts/shortcodes"
+    mkdir -p "$project_path/config/_default"
 
     # files
 
@@ -120,6 +121,36 @@ command_new() {
     printf "{{ define \"main\" }}
 
 {{ end }}" > "$project_path/layouts/index.html"
+    # config.toml
+    printf "# baseURL = \"https://domain\"
+languageCode = \"en\"
+defaultContentLanguage= \"en\"
+title = \"HUGO\"
+    " > "$project_path/config/_default/config.toml"
+    # menus.toml
+    printf "# -- Main Menu --
+[[main]]
+    name = \"Blog\"
+    pageRef = \"posts\"
+    weight = 10
+
+[[main]]
+    name = \"Categories\"
+    pageRef = \"categories\"
+    weight = 20
+
+# -- Footer Menu --
+[[footer]]
+    name = \"Tags\"
+    pageRef = \"tags\"
+    weight = 10
+    " > "$project_path/config/_default/menus.toml"
+    # params.toml
+    printf "# -- Parameters --
+    " > "$project_path/config/_default/params.toml"
+
+    # remove files
+    rm "$project_path/config.toml"
 }
 
 command_version() {
